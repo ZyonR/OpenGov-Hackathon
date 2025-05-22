@@ -1,0 +1,12 @@
+pandas
+langdetect
+contractions
+nltk
+sentence-transformers
+scikit-learn
+numpy
+scipy
+spacy
+streamlit
+joblib
+plotly
