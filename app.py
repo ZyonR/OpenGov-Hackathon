@@ -16,6 +16,7 @@ import streamlit as st
 import joblib
 from sklearn.decomposition import PCA
 import plotly.express as px
+import subprocess
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -71,7 +72,11 @@ def handle_tokens(text,lang):
             tokens = word_tokenize(text)
             text = " ".join([word for word in tokens if word not in stop_words])
         case "tl":
-            nlp = spacy.load("tl_core_news_sm")
+            try:
+                nlp = spacy.load("tl_core_news_sm")
+            except OSError:
+                subprocess.run(["python", "-m", "spacy", "download", "tl_core_news_sm"])
+                nlp = spacy.load("tl_core_news_sm")
             doc = nlp(text)
             text = " ".join([token.text for token in doc if not token.is_stop])
     return text
